@@ -1,1 +1,81 @@
-WEB EXPLOITATION
+#WEB EXPLOITATION
+
+## CAAS
+
+The 8th line in the file "index.js" looked exploitable.
+
+`exec(`/usr/games/cowsay ${req.params.message}`, {timeout: 5000}, (error, stdout) => {`
+
+Whatever we write in the place of message gets executed. The dollar sign above signifies that it is an interpolated string. So if we send a message like "hello;ls", we would get the output of `ls`.
+
+```
+< hello >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+Dockerfile
+falg.txt
+index.js
+node_modules
+package.json
+public
+yarn.lock
+```
+So `falg.txt` is where our flag would be. So catting out `falg.txt` we can get our flag. We used "%20" instead of space in the command.
+
+`curl "https://caas.mars.picoctf.net/cowsay/hello;cat%20falg.txt"`
+
+Flag :: picoCTF{moooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo0o}
+
+##Forbidden Paths
+
+On opening the website, we could read the files mentioned in the webiste using the absolute path. So by using the absolute path, we tried reading  `/flag.txt`, but it throwed an error.
+
+Therefore we had to use relative path method to access `/flag.txt`. To test it, I tried open the text file mentioned in the webiste by the command `.../html/divine-comedy.txt` and it worked.
+Therefore I used `../../../../flag.txt` to get the flag.
+
+Flag :: picoCTF{7h3_p47h_70_5ucc355_e5fe3d4d}
+
+##Local Authority
+
+On opening the website, I tried logging in using id-admin and password-admin which ofcourse failed. Then I went through the source code and noticed that there is a form which directs a post request
+to `login.php`. Then I sent a get request to the website `view-source:http://saturn.picoctf.net:49386/login.php' which redirects me to a hidden form as `admin.php` where we can see a "secure.js" file
+which has the username and password which we require to find the flag.
+
+Flag :: picoCTF{j5_15_7r4n5p4r3n7_b0c2c9cb}
+
+
+#Forensics
+
+##tunn3l v1s10n
+
+Used an online hex editor to solve this level. Placed the downloaded file in the hex editor which showed me that it is a bitmap(.bmp) file. The file couldn't be opened as it was corrupted.
+To compare what was corrupted in the file, I downloaded a sample bmp file. I noticed that some of the values in
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
