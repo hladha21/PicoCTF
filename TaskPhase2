@@ -52,8 +52,17 @@ Flag :: picoCTF{j5_15_7r4n5p4r3n7_b0c2c9cb}
 
 ##tunn3l v1s10n
 
-Used an online hex editor to solve this level. Placed the downloaded file in the hex editor which showed me that it is a bitmap(.bmp) file. The file couldn't be opened as it was corrupted.
-To compare what was corrupted in the file, I downloaded a sample bmp file. I noticed that some of the values in
+Used an online hex editor to solve this level. Opened the downloaded file in the hex editor which showed me that it is a bitmap(.bmp) file. The file couldn't be opened as it was corrupted.
+To compare what was corrupted in the file, I downloaded a sample bmp file. I noticed that some of the values which should have been static values were different. So I changed the values accordingly.
+Now I could open the file but still I couldn't find out the flag. On seeing the image in the file, anyone could say that it was a cropped one. So we needed to change some values in the bitmap 
+source code which would control the height and width of the image. I used the `exiftool` command online to find the width and height of the image which came out as 1134 and 306 respectively 
+which in hex is '0x46e' and '0x132' respectively. Therfore the height of the image needed to be fixed as it was in reverse bytes. The correct height of the image came out to be as 850 which read in
+hex as '0x352'. Therefore after changing the height of the image in the bitmap source code, we found out the flag.
+
+Flag :: picoCTF{qu1t3_a_v13w_2020}
+
+**Trivial FTP**
+Begin by downloading the file and opening using wireshark. We can see some TFTP traffic using this. Then I extracted the TFTP files to a local folder. 6 files have been extracted to our folder. Out of these, 2 are .txt files, 3 are .bmp files, and 1 is a .deb file
 
 
 
