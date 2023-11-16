@@ -50,7 +50,7 @@ Flag :: picoCTF{j5_15_7r4n5p4r3n7_b0c2c9cb}
 
 #Forensics
 
-##tunn3l v1s10n
+**tunn3l v1s10n**
 
 Used an online hex editor to solve this level. Opened the downloaded file in the hex editor which showed me that it is a bitmap(.bmp) file. The file couldn't be opened as it was corrupted.
 To compare what was corrupted in the file, I downloaded a sample bmp file. I noticed that some of the values which should have been static values were different. So I changed the values accordingly.
@@ -62,22 +62,33 @@ hex as '0x352'. Therefore after changing the height of the image in the bitmap s
 Flag :: picoCTF{qu1t3_a_v13w_2020}
 
 **Trivial FTP**
-Begin by downloading the file and opening using wireshark. We can see some TFTP traffic using this. Then I extracted the TFTP files to a local folder. 6 files have been extracted to our folder. Out of these, 2 are .txt files, 3 are .bmp files, and 1 is a .deb file
+Begin by downloading the file and opening using wireshark. We can see some TFTP traffic using this. Then I extracted the TFTP files to a local folder. 6 files have been extracted to our folder. Out of these, 2 are .txt files, 3 are .bmp files, and 1 is a .deb file. On looking the content of instructions.txt, I put it into an online cipher identifier which showed me that it was encrypted in a ROT-13 cipher. After passing through a decoder online the `plan` file prints out the following message:
+"IUSEDTHEPROGRAMANDHIDITWITH-DUEDILIGENCE.CHECKOUTTHEPHOTOS".
+
+I have also read that data in images can be concealed by steganography. I then opened an online steganography decoder and started to pass the images one-by-one using DUEDILIGENCE as the password. Image 3 hid the flag.
+
+Flag :: picoCTF{h1dd3n_1n_pLa1n_51GHT_18375919}
+
+**MacroHard WeakEdge**
+
+After going through the ppt and finding nothing, I searched the web and got to know that sometimes these files can be zipped. By using the unzip command of linux I was able to get the contents of the file which also contained the hidden file. After entering through the directories and reading the file I found a text which seems to be base64 encoded. After decoding it I found the flag.
+
+Flag :: picoCTF{D1d_u_kn0w_ppts_r_z1p5}
 
 
+#Binary Exploitation
+
+**
 
 
+#Cryptography
 
+**New Caesar**
+Upon understanding the code essentially what is happening is that the key is any 1 character from a-p. When we pass a flag what happens is first it is converted to its binary value. Then this value is split from the middle whose binary is converted into a decimal number. This decimal number is then converted into its corresponding character. The shift function is carrying out some form of a caesar shift. 
 
+What we essentially do is convert the split parts of the code and combine them to form the complete binary which we then convert to decimal and decimal to characters.
 
-
-
-
-
-
-
-
-
+On running the code key and flag will get printed. When the key is e the flag seems to be in a readable format with no weird characters and it is the key.
 
 
 
